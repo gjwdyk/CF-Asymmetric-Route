@@ -1,0 +1,11 @@
+alert Product_License_Expires_On "Product license expires on" {
+ exec command="/bin/sudo /bin/bash /config/lidsa/BigIPSendMailLidsa Product_License_Expires_On '' 'Product license expires'"
+}
+
+alert Evaluation_License_Has_Expired "Evaluation license has expired" {
+ exec command="/bin/sudo /bin/bash /config/lidsa/BigIPSendMailLidsa Evaluation_License_Has_Expired '' 'license has expired'"
+}
+
+alert License_Is_Not_Operational "License is not operational" {
+ exec command="/bin/sudo /bin/bash /config/lidsa/BigIPSendMailLidsa License_Is_Not_Operational '' 'License is not operation'"
+}
