@@ -24,8 +24,6 @@ therefore building the environment on AWS where the resources are abundant and t
 
 However upon more research and quite some attempts to build a VyOS node with CloudFormation, it is revealed that VyOS is NOT capable to support Cloud-Init through User-Data form, as referred on the below highlighted respond to a customer feedback/review on VyOS product page on AWS.
 
-![VyOS Respond](Figures/VyOSCFCloudInitUserDataSupport20200702Marked.png)
-
 <a href="https://aws.amazon.com/marketplace/reviews/reviews-list/B07N3X1P1T/review/8e54e2e2-963c-4e6f-8fac-90a7adb8ec5b">![VyOS Respond](Figures/VyOSCFCloudInitUserDataSupport20200702Marked.png)</a>
 
 
