@@ -23,21 +23,16 @@ Below the same diagram depicting the traffic flows through the network elements 
 
 VyOS Update :
 
-VyOS is NOT capable to support Cloud-Init through User-Data form, as referred on the below respond to a
+VyOS is NOT capable to support Cloud-Init through User-Data form, as referred on the below highlighted respond to a customer feedback on VyOS product page on AWS.
 
 ![VyOS Respond](Figures/VyOSCFCloudInitUserDataSupport20200702Marked.png)
 
 
 
-
 To Do:
 
-- [ ] Update existing AS3 with Pools from Windows Server ??? (should we do this or not?)
-- [ ] Update Previous CF templates to use No OutBound versions of AS3 (and Update the corresponding Documentations)
-- [ ] tmsh modify sys db ui.statistics.modulestatistics.localtraffic.persistencerecords value true
-- [ ] Test Concept of Floating IP for High Availability. If 2 interfaces assigned same IP Address, will they be conflict? If not assigned, will they work?
-- [ ] Default ASM Profiles
-- [ ] APM (when applicable)
+- [ ] Post the current CF which Implements the Environment (only minus the 2 VyOS and Internal Node only)
+- [ ] May Implement VyOS Part with yet another 2 Big-IPs
 
 
 
