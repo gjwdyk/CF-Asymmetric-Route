@@ -23,7 +23,7 @@ Below the same diagram depicting the traffic flows through the network elements 
 
 VyOS Update :
 
-VyOS is NOT capable to support Cloud-Init through User-Data form, as referred on the below highlighted respond to a customer feedback on VyOS product page on AWS.
+VyOS is NOT capable to support Cloud-Init through User-Data form, as referred on the below highlighted respond to a customer feedback/review on VyOS product page on AWS.
 
 ![VyOS Respond](Figures/VyOSCFCloudInitUserDataSupport20200702Marked.png)
 
