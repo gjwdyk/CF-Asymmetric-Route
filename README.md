@@ -39,6 +39,8 @@ With the traffic flow similar as before, depicted in the below diagram:
 Images provided are high resolution images, click on the images to get better/readable resolution, or go to [Figures](Figures/) folder.
 
 
+<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html">![Supported Interface Per Instance Type](Figures/SupportedInterfacePerInstanceType.png)</a>
+
 
 
 ***
