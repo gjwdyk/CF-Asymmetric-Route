@@ -38,12 +38,17 @@ With the traffic flow similar as before, depicted in the below diagram:
 
 Images provided are high resolution images, click on the images to get better/readable resolution, or go to [Figures](Figures/) folder.
 
-The latter configuration where the asymmetricity are provided by Big-IP is a much better configuration for a couple of reasons :
+The latter configuration where the asymmetricity is provided by Big-IP, is a much better configuration for a couple of reasons :
 
 <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html">![Supported Interface Per Instance Type](Figures/SupportedInterfacePerInstanceType.png)</a>
 
 * As per designed, the number of interfaces per node are fixed. The positions for Big-IP require 4 or 6 interfaces. The Internal Node require only 2 interfaces.
-* With Big-IP replacing VyOS, makes it possible to do Test/Demo of asymmetricity at that position for Big-IP.
+  So it does not matter which platform implemented at position (VyOS-I/VyOS-E or Big-IP Internal/Big-IP External), the Instance Type are fixed as per excerpt reference table above.
+  So using VyOS does NOT reduce the Instance Type cost.
+  On contrary, VyOS incurs more cost, because the Big-IP implemented are BYOL (Bring Your Own License), while VyOS only provides the paid version.
+  The VyOS community version does not guarantee that the image is safe to use and does not contain any malware.
+* With Big-IP replacing VyOS, makes it possible to do Test/Demo of asymmetricity at the corresponding position for Big-IP.
+  While if VyOS is used the chance to study, test and demo Big-IP capability in those positions are nullified.
 
 
 
