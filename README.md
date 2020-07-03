@@ -36,6 +36,9 @@ With the traffic flow similar as before, depicted in the below diagram:
 
 ![Logical Network Diagram with Service Flows](Figures/LogicalNetworkDiagramBigIPwithServiceFlows.png)
 
+Images provided are high resolution images, click on the images to get better/readable resolution, or go to [Figures](Figures/) folder.
+
+
 
 
 ***
