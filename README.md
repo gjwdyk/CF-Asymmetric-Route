@@ -38,8 +38,13 @@ With the traffic flow similar as before, depicted in the below diagram:
 
 Images provided are high resolution images, click on the images to get better/readable resolution, or go to [Figures](Figures/) folder.
 
+The latter configuration where the asymmetricity are provided by Big-IP is a much better configuration for a couple of reasons :
 
 <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html">![Supported Interface Per Instance Type](Figures/SupportedInterfacePerInstanceType.png)</a>
+
+* As per designed, the number of interfaces per node are fixed. The positions for Big-IP require 4 or 6 interfaces. The Internal Node require only 2 interfaces.
+* With Big-IP replacing VyOS, makes it possible to do Test/Demo of asymmetricity at that position for Big-IP.
+
 
 
 
