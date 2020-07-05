@@ -58,10 +58,8 @@ Going on forward, VyOS will no longer be considered to be used in this Repositor
 
 
 
-<a href="https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?stackName=AsymmetricRoute&templateURL=https://aws-f5-singapore-hc-demo-bucket-files.s3-ap-southeast-1.amazonaws.com/CF/CF_Asymmetric_Route_Empty_Original.json"><img align="right" src="https://github.com/gjwdyk/CF-Asymmetric-Route/raw/master/Figures/LaunchStackJigokuShoujo.png" width="140" height="22"/></a>
-<br>
-<br>
-<br>
+<a href="https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?stackName=AsymmetricRoute&templateURL=https://aws-f5-singapore-hc-demo-bucket-files.s3-ap-southeast-1.amazonaws.com/CF/CF_Asymmetric_Route_Empty_Original.json"><img align="right" src="https://github.com/gjwdyk/CF-Asymmetric-Route/raw/master/Figures/LaunchStackJigokuShoujo.png" width="140" height="22"/></a><br>
+
 The [CF/CF_Asymmetric_Route_Empty.json](CF/CF_Asymmetric_Route_Empty.json) template creates the building blocks only as per depicted on the diagram above :
 1. Four Big-IP instances and one Ubuntu Server 16.04 in a new VPC built as per diagram above.
 2. The Big-IP instances are licensed with the provided Registration Key Licenses.
