@@ -75,6 +75,7 @@ The [CF/CF_Asymmetric_Route_Empty.json](CF/CF_Asymmetric_Route_Empty.json) templ
 
 To Do:
 
+- [ ] Upgrade Image to Allow Normal VE License to Work.
 - [ ] AS3 for All Big-IP(s) to just flow the traffic asymmetrically.
 
 
