@@ -75,8 +75,7 @@ The [CF/CF_Asymmetric_Route_Empty.json](CF/CF_Asymmetric_Route_Empty.json) templ
 
 To Do:
 
-- [ ] Post the current CF which Implements the Environment (only minus the 2 VyOS and Internal Node only)
-- [ ] May Implement VyOS Part with yet another 2 Big-IPs
+- [ ] AS3 for All Big-IP(s) to just flow the traffic asymmetrically.
 
 
 
