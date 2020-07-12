@@ -20,7 +20,7 @@ Below the same diagram depicting the traffic flows through the network elements 
 
 Similar environment (but NOT exactly the same) has been successfully built on VMware Workstation with the help of VyOS to create the asymmetricity of the traffic.
 However since VMware Workstation portability is not flexible enough (to transfer the image-files, one will need to upload/download tens of GigaBytes of image-files), and to run the VMware images one will require top of the class Laptop/Desktop with a lot CPU and Memory resources;
-therefore building the environment on AWS where the resources are abundant and there is no need to transfer upload/download tens of GigaBytes of image-files, the AWS CloudFormation solution is viewed as a very good alternative.
+therefore building the environment on AWS where the resources are abundant and there is no need to transfer upload/download tens of GigaBytes of image-files, the AWS CloudFormation solution is viewed as one of a few good alternatives.
 
 However upon more research and quite some attempts to build a VyOS node with CloudFormation, it is revealed that VyOS is NOT capable to support Cloud-Init through User-Data form, as referred on the below highlighted respond to a customer feedback/review on VyOS product page on AWS.
 
