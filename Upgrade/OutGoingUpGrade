@@ -1,0 +1,100 @@
+#!/bin/bash
+
+echo "HC's Mark --------->>>>>>>>> Starting UpGrade bash script."
+
+echo "HC's Mark --------->>>>>>>>> Test Cycle"
+UpGradeVolume_File=/config/UpgradeVolume
+UpGradeVolume_Value="HD1.9"
+if [ -f "$UpGradeVolume_File" ]; then
+  sudo echo "`date +%Y%m%d%H%M%S` $UpGradeVolume_File exist."
+else
+  sudo echo "`date +%Y%m%d%H%M%S` $UpGradeVolume_File NOT exist."
+fi
+
+
+declare -a tmsh=()
+ tmsh+=(
+  "tmsh modify auth user admin password `cat /config/BigIPAdminPassword`"
+  "tmsh modify sys db ui.system.preferences.recordsperscreen value 333"
+
+  "tmsh modify net vlan OutGoingBigIPPrivateExternalInComingVLAN auto-lasthop disabled"
+  "tmsh modify net vlan OutGoingBigIPPrivateExternalOutGoingVLAN auto-lasthop disabled"
+  "tmsh modify net vlan OutGoingBigIPPrivateHighAvailabilityVLAN auto-lasthop disabled"
+  "tmsh modify net vlan OutGoingBigIPPrivateInternalInComingVLAN auto-lasthop disabled"
+  "tmsh modify net vlan OutGoingBigIPPrivateInternalOutGoingVLAN auto-lasthop disabled"
+  "tmsh create net route toAny { gw 10.1.30.30 network 0.0.0.0/0 }"
+  "tmsh create net route toPrivateInternalBiDirection { gw 10.1.10.20 network 10.1.5.0/24 }"
+
+  "tmsh create ltm profile fastl4 FastL4_Profile { defaults-from fastL4 loose-close enabled loose-initialization enabled syn-cookie-enable disabled }"
+  "tmsh create ltm virtual VSPrivateInternalOutGoing destination 0.0.0.0:any ip-forward mask any profiles replace-all-with { FastL4_Profile } auto-lasthop disabled source 0.0.0.0/0 source-port preserve-strict translate-address disabled translate-port disabled vlans-enabled vlans replace-all-with { OutGoingBigIPPrivateInternalOutGoingVLAN }"
+  "tmsh create ltm virtual VSPrivateExternalOutGoing destination 0.0.0.0:any ip-forward mask any profiles replace-all-with { FastL4_Profile } auto-lasthop disabled source 0.0.0.0/0 source-port preserve-strict translate-address disabled translate-port disabled vlans-enabled vlans replace-all-with { OutGoingBigIPPrivateExternalOutGoingVLAN }"
+
+  "tmsh save /sys config"
+ )
+for CMD in "${tmsh[@]}"
+ do
+  "/config/cloud/aws/node_modules/@f5devcentral/f5-cloud-libs/scripts/waitForMcp.sh"
+  if $CMD; then
+   echo "command $CMD successfully executed."
+  else
+   error_exit "$LINENO: An error has occurred while executing $CMD. Aborting!"
+  fi
+done
+
+
+echo "HC's Mark --------->>>>>>>>> Insert User ID and Password into SSMTP Configuration File."
+echo "AuthUser=`cat /etc/ssmtp/SMTPUserID`" >> /etc/ssmtp/ArchiveSSMTPConfiguration
+echo "AuthPass=`cat /etc/ssmtp/SMTPUserPassword`" >> /etc/ssmtp/ArchiveSSMTPConfiguration
+cp --force /etc/pki/tls/certs/ca-bundle.crt /etc/ssmtp/ca-bundle.crt
+chmod 666 /etc/ssmtp/ca-bundle.crt
+cp --force /etc/ssmtp/ArchiveSSMTPConfiguration /etc/ssmtp/ssmtp.conf
+if [ ! -d /config/Flags ]; then
+ mkdir /config/Flags
+ echo "Create directory /config/Flags"
+fi
+if [ ! -d /config/lidsa ]; then
+ mkdir /config/lidsa
+ mkdir /config/lidsa/cae
+ echo "Create directory /config/lidsa and /config/lidsa/cae"
+else
+ if [ ! -d /config/lidsa/cae ]; then
+  mkdir /config/lidsa/cae
+  echo "Create directory /config/lidsa/cae"
+ fi
+fi
+cat /config/user_alert.archive >> /config/user_alert.conf
+
+
+echo "@reboot               root   /bin/sudo /bin/cp --force /etc/ssmtp/ArchiveSSMTPConfiguration /etc/ssmtp/ssmtp.conf" >> /etc/crontab
+echo "*/9   *   *   *   *   root   /bin/sudo /bin/bash /config/ClearFlags" >> /etc/crontab
+echo "1   9   anacron.daily   /bin/sudo /bin/bash /config/RotateLog" >> /etc/anacrontab
+echo "3   22   anacron.weekly   /bin/sudo /bin/bash /config/lidsa/ClearLidsaFlags" >> /etc/anacrontab
+awk 'BEGIN{ORS=""} $1=="nameserver" {print $2; exit}' /etc/resolv.conf > /config/lidsa/DNSServer
+printf "`cat /config/lidsa/TemporaryLidsa`" > /config/lidsa/LoremIpsumDolorSitAmet
+rm --force /config/lidsa/TemporaryLidsa
+
+
+mv /shared/images/UpgradeImage.iso /shared/images/`cat /config/UpgradeImageFileName`
+mv /shared/images/UpgradeImage.iso.md5 /shared/images/`cat /config/UpgradeImageFileName`.md5
+cd /shared/images/
+md5sum --check `cat /config/UpgradeImageFileName`.md5 > /config/MD5CheckSumResult
+printf "$UpGradeVolume_Value" > "$UpGradeVolume_File"
+if ( cat /config/MD5CheckSumResult | grep "`cat /config/UpgradeImageFileName`" | grep "OK" ) ; then
+  sleep 1m
+  echo "HC's Mark --------->>>>>>>>> Pass this point NO MORE FILES can be Written or Updated to Storage PERMANENTLY. Files written or updated are still possible but the value is temporary ONLY."
+  tmsh install /sys software image `cat /config/UpgradeImageFileName` volume `cat /config/UpgradeVolume` create-volume
+  tmsh show sys software > /config/MonitorUpgradeVolumeInstallation
+  while ( ! ( cat /config/MonitorUpgradeVolumeInstallation | grep "`cat /config/UpgradeVolume`" | grep "complete" ) ) ; do
+    sleep 3m 33s
+    tmsh show sys software > /config/MonitorUpgradeVolumeInstallation
+  done
+  if ( cat /config/MonitorUpgradeVolumeInstallation | grep "`cat /config/UpgradeVolume`" | grep "complete" ) ; then
+    sync
+    sleep 1m
+    tmsh reboot volume `cat /config/UpgradeVolume`
+  fi
+else
+  echo "########################################################"
+  echo "# /shared/images/`cat /config/UpgradeImageFileName` is CORRUPTED #"
+  echo "########################################################"
+fi
