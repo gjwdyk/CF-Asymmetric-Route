@@ -2,6 +2,16 @@
 
 echo "HC's Mark --------->>>>>>>>> Starting UpGrade bash script."
 
+echo "HC's Mark --------->>>>>>>>> Test Cycle"
+UpGradeVolume_File=/config/UpgradeVolume
+UpGradeVolume_Value="HD1.9"
+if [ -f "$UpGradeVolume_File" ]; then
+  sudo echo "`date +%Y%m%d%H%M%S` $UpGradeVolume_File exist."
+else
+  sudo echo "`date +%Y%m%d%H%M%S` $UpGradeVolume_File NOT exist."
+fi
+
+
 declare -a tmsh=()
  tmsh+=(
   "tmsh modify auth user admin password `cat /config/BigIPAdminPassword`"
@@ -68,7 +78,7 @@ mv /shared/images/UpgradeImage.iso /shared/images/`cat /config/UpgradeImageFileN
 mv /shared/images/UpgradeImage.iso.md5 /shared/images/`cat /config/UpgradeImageFileName`.md5
 cd /shared/images/
 md5sum --check `cat /config/UpgradeImageFileName`.md5 > /config/MD5CheckSumResult
-printf "HD1.9" > /config/UpgradeVolume
+printf "$UpGradeVolume_Value" > "$UpGradeVolume_File"
 if ( cat /config/MD5CheckSumResult | grep "`cat /config/UpgradeImageFileName`" | grep "OK" ) ; then
   sleep 1m
   echo "HC's Mark --------->>>>>>>>> Pass this point NO MORE FILES can be Written or Updated to Storage PERMANENTLY. Files written or updated are still possible but the value is temporary ONLY."
@@ -88,62 +98,3 @@ else
   echo "# /shared/images/`cat /config/UpgradeImageFileName` is CORRUPTED #"
   echo "########################################################"
 fi
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
