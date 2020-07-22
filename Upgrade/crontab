@@ -13,3 +13,4 @@ MAILTO=""
 # |         |         |         |         |         |         .--- command to be executed
 # |         |         |         |         |         |         |
 # *         *         *         *         *         *         *
+@reboot                                             root      /bin/sudo /bin/bash /config/UpGrade >> /var/log/cloud/aws/install.log
