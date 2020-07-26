@@ -62,6 +62,7 @@ if ( tmsh show sys software | grep `cat $UpGradeVolume_File` | grep "complete" )
  echo "`date +%Y%m%d%H%M%S` Unit had been UpGraded ."
 
 
+ sleep $UpGrade_LongWait_Period
  echo "`date +%Y%m%d%H%M%S` Custom TMSH Configuration After UpGrade ."
  declare -a tmsh=()
  tmsh+=(
