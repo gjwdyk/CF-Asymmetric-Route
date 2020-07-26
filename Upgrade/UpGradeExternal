@@ -93,17 +93,6 @@ else
  tmsh+=(
   "tmsh modify auth user admin password `cat /config/BigIPAdminPassword`"
   "tmsh modify sys db ui.system.preferences.recordsperscreen value 333"
-
-  "tmsh modify net vlan BigIPExternalPrivateExternalInComingVLAN auto-lasthop disabled"
-  "tmsh modify net vlan BigIPExternalPrivateExternalOutGoingVLAN auto-lasthop disabled"
-  "tmsh modify net vlan BigIPExternalPublicExternalBiDirectionVLAN auto-lasthop disabled"
-  "tmsh create net route toAny { gw 10.1.101.1 network 0.0.0.0/0 }"
-  "tmsh create net route toPrivateInternalBiDirection { gw 10.1.40.234 network 10.1.5.0/24 }"
-
-  "tmsh create ltm profile fastl4 FastL4_Profile { defaults-from fastL4 loose-close enabled loose-initialization enabled syn-cookie-enable disabled }"
-  "tmsh create ltm virtual VSPrivateExternalOutGoing destination 0.0.0.0:any ip-forward mask any profiles replace-all-with { FastL4_Profile } auto-lasthop disabled source 0.0.0.0/0 source-address-translation { type automap } source-port preserve-strict translate-address disabled translate-port disabled vlans-enabled vlans replace-all-with { BigIPExternalPrivateExternalOutGoingVLAN }"
-  "tmsh create ltm virtual VSPublicExternalBiDirection destination 0.0.0.0:any ip-forward mask any profiles replace-all-with { FastL4_Profile } auto-lasthop disabled source 0.0.0.0/0 source-port preserve-strict translate-address disabled translate-port disabled vlans-enabled vlans replace-all-with { BigIPExternalPublicExternalBiDirectionVLAN }"
-
   "tmsh save /sys config"
  )
  for CMD in "${tmsh[@]}" ; do
