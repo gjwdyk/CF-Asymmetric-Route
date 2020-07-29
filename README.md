@@ -73,6 +73,21 @@ The [CF/CF_Asymmetric_Route_Empty.json](CF/CF_Asymmetric_Route_Empty.json) templ
 
 
 
+<a href="https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?stackName=AsymmetricRoute&templateURL=https://aws-f5-singapore-hc-demo-bucket-files.s3-ap-southeast-1.amazonaws.com/CF/CF_Asymmetric_UpGrade_Empty.json"><img align="right" src="https://github.com/gjwdyk/CF-Asymmetric-Route/raw/master/Figures/LaunchStackJigokuShoujo.png" width="140" height="22"/></a><br>
+
+The [CF/CF_Asymmetric_UpGrade_Empty.json](CF/CF_Asymmetric_UpGrade_Empty.json) template creates the building blocks only as per depicted on the diagram above :
+1. Four Big-IP instances and one Ubuntu Server 16.04 in a new VPC built as per diagram above.
+2. The Big-IP instances are licensed with the provided Registration Key Licenses; and then Upgraded to the version of indicated on the CF Parameter (URL to the .iso file) and can be further re-licensed and provisioned with different modules.
+3. No traffic related configuration on Big-IP, so traffic will not be forwarded anywhere.
+
+<a href="https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?stackName=AsymmetricRoute&templateURL=https://aws-f5-singapore-hc-demo-bucket-files.s3-ap-southeast-1.amazonaws.com/CF/CF_Asymmetric_UpGrade_Empty.json"><img src="https://github.com/gjwdyk/CF-Asymmetric-Route/raw/master/Figures/JigokuShoujoLaunchStack.png" width="140" height="22"/></a>
+
+
+
+***
+
+
+
 To Do:
 
 - [ ] Upgrade Image to Allow Normal VE License to Work.
