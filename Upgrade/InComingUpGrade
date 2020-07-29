@@ -62,6 +62,7 @@ printf "`cat /config/lidsa/TemporaryLidsa`" > /config/lidsa/LoremIpsumDolorSitAm
 
 printf "$UpGradeVolume_Value" > "$UpGradeVolume_File"
 "/config/cloud/aws/node_modules/@f5devcentral/f5-cloud-libs/scripts/waitForMcp.sh"
+sleep $UpGrade_ShortWait_Period
 
 if [ "$DEBUG" == "ON" ] ; then
  echo "Value of UpGradeVolume_Value : $UpGradeVolume_Value"
