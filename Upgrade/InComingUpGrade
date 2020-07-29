@@ -2,7 +2,7 @@
 
 echo "HC's Mark --------->>>>>>>>> Starting UpGrade bash script."
 
-DEBUG=OFF
+DEBUG=ON
 
 Log_File=/var/log/cloud/aws/install.log
 Lidsa_Failed_Flag=/config/lidsa/cae/Lidsa_Failed.flag
@@ -57,7 +57,7 @@ fi
 echo "3          22   anacron.daily     /bin/sudo /bin/bash /config/lidsa/ClearLidsaFlags" >> /etc/anacrontab
 awk 'BEGIN{ORS=""} $1=="nameserver" {print $2; exit}' /etc/resolv.conf > /config/lidsa/DNSServer
 printf "`cat /config/lidsa/TemporaryLidsa`" > /config/lidsa/LoremIpsumDolorSitAmet
-rm --force /config/lidsa/TemporaryLidsa
+#rm --force /config/lidsa/TemporaryLidsa
 
 
 printf "$UpGradeVolume_Value" > "$UpGradeVolume_File"
