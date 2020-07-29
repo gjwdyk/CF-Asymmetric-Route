@@ -90,7 +90,7 @@ The [CF/CF_Asymmetric_UpGrade_Empty.json](CF/CF_Asymmetric_UpGrade_Empty.json) t
 
 To Do:
 
-- [ ] Upgrade Image to Allow Normal VE License to Work.
+- [ ] Upgrade Image to Allow Normal VE License to Work >>> Does NOT work ?!? Test in Normal Manual Case ?!?
 - [ ] AS3 for All Big-IP(s) to just flow the traffic asymmetrically.
 
 
