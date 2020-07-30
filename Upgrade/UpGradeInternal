@@ -19,12 +19,12 @@ UpGrade_LongWait_Period="3m 33s"
 
 
 
-while ( ! [ -f "$Log_File" ] ) ; do
+while ( ! [ -f "$Log_File" ] ); do
  echo "`date +%Y%m%d%H%M%S` Wait for $Log_File . Sleep for $Log_Wait_Period ."
  sleep $Log_Wait_Period
 done
 
-while ( ! ( ( grep "Sending signal" "$Log_File" | grep "PASSWORD_CREATED" ) && ( grep "Sending signal" "$Log_File" | grep "ADMIN_CREATED" ) && ( grep "Sending signal" "$Log_File" | grep "NETWORK_CONFIG_DONE" ) && ( grep "Sending signal" "$Log_File" | grep "ONBOARD_DONE" ) && ( grep "Sending signal" "$Log_File" | grep "CUSTOM_CONFIG_DONE" ) && ( grep "Sending signal" "$Log_File" | grep "PASSWORD_REMOVED" ) && ( grep "exited with code 0" "$Log_File" | grep "f5-rest-node" ) && ( grep "exited with code 0" "$Log_File" | grep "createUser.sh" ) && ( grep "exited with code 0" "$Log_File" | grep "custom-config.sh" ) && ( grep "exited with code 0" "$Log_File" | grep "rm-password.sh" ) ) ) ; do
+while ( ! ( ( grep "Sending signal" "$Log_File" | grep "PASSWORD_CREATED" ) && ( grep "Sending signal" "$Log_File" | grep "ADMIN_CREATED" ) && ( grep "Sending signal" "$Log_File" | grep "NETWORK_CONFIG_DONE" ) && ( grep "Sending signal" "$Log_File" | grep "ONBOARD_DONE" ) && ( grep "Sending signal" "$Log_File" | grep "CUSTOM_CONFIG_DONE" ) && ( grep "Sending signal" "$Log_File" | grep "PASSWORD_REMOVED" ) && ( grep "exited with code 0" "$Log_File" | grep "f5-rest-node" ) && ( grep "exited with code 0" "$Log_File" | grep "createUser.sh" ) && ( grep "exited with code 0" "$Log_File" | grep "custom-config.sh" ) && ( grep "exited with code 0" "$Log_File" | grep "rm-password.sh" ) ) ); do
  echo "`date +%Y%m%d%H%M%S` Wait for Other Processes to Finish . Sleep for $Log_Wait_Period ."
  sleep $Log_Wait_Period
 done
@@ -75,7 +75,7 @@ if [ "$DEBUG" == "ON" ] ; then
  echo "`cat /config/lidsa/LoremIpsumDolorSitAmet`"
 fi
 
-if ( tmsh show sys software | grep `cat $UpGradeVolume_File` | grep "complete" ) ; then
+if ( tmsh show sys software | grep `cat $UpGradeVolume_File` | grep "complete" ); then
  echo "`date +%Y%m%d%H%M%S` Unit had been UpGraded ."
 
  if [[ `cat $UpGradeImageName_File` =~ ^(BIGIP\-)((([0-9]+)\.)+)([0-9]+)\-((([0-9]+)\.)+)([0-9]+)\.iso$ ]]; then
@@ -91,7 +91,7 @@ if ( tmsh show sys software | grep `cat $UpGradeVolume_File` | grep "complete" )
   "tmsh modify auth user admin password `cat /config/BigIPAdminPassword`"
   "tmsh save /sys config"
  )
- for CMD in "${tmsh[@]}" ; do
+ for CMD in "${tmsh[@]}"; do
   "/config/cloud/aws/node_modules/@f5devcentral/f5-cloud-libs/scripts/waitForMcp.sh"
   if $CMD; then
    echo "command $CMD successfully executed."
@@ -112,7 +112,7 @@ else
   "tmsh modify sys db ui.system.preferences.recordsperscreen value 333"
   "tmsh save /sys config"
  )
- for CMD in "${tmsh[@]}" ; do
+ for CMD in "${tmsh[@]}"; do
   "/config/cloud/aws/node_modules/@f5devcentral/f5-cloud-libs/scripts/waitForMcp.sh"
   if $CMD; then
    echo "command $CMD successfully executed."
@@ -127,15 +127,15 @@ else
   mv /shared/images/UpgradeImage.iso.md5 /shared/images/`cat $UpGradeImageName_File`.md5
   cd /shared/images/
   md5sum --check `cat $UpGradeImageName_File`.md5 > /config/MD5CheckSumResult
-  if ( cat /config/MD5CheckSumResult | grep `cat $UpGradeImageName_File` | grep "OK" ) ; then
+  if ( cat /config/MD5CheckSumResult | grep `cat $UpGradeImageName_File` | grep "OK" ); then
    sleep $UpGrade_ShortWait_Period
    tmsh install /sys software image `cat $UpGradeImageName_File` volume `cat $UpGradeVolume_File` create-volume
    tmsh show sys software > /config/MonitorUpgradeVolumeInstallation
-   while ( ! ( cat /config/MonitorUpgradeVolumeInstallation | grep `cat $UpGradeVolume_File` | grep "complete" ) ) ; do
+   while ( ! ( cat /config/MonitorUpgradeVolumeInstallation | grep `cat $UpGradeVolume_File` | grep "complete" ) ); do
     sleep $UpGrade_LongWait_Period
     tmsh show sys software > /config/MonitorUpgradeVolumeInstallation
    done
-   if ( cat /config/MonitorUpgradeVolumeInstallation | grep `cat $UpGradeVolume_File` | grep "complete" ) ; then
+   if ( cat /config/MonitorUpgradeVolumeInstallation | grep `cat $UpGradeVolume_File` | grep "complete" ); then
     sync
     sleep $UpGrade_ShortWait_Period
     tmsh reboot volume `cat $UpGradeVolume_File`
@@ -144,16 +144,13 @@ else
    echo "`date +%Y%m%d%H%M%S` /shared/images/`cat $UpGradeImageName_File` is CORRUPTED ."
   fi
  else
-  if [ -f /shared/images/UpgradeImage.iso ]; then
-  else
+  if [ ! -f /shared/images/UpgradeImage.iso ]; then
    echo "`date +%Y%m%d%H%M%S` /shared/images/UpgradeImage.iso does NOT exist ."
   fi
-  if [ -f /shared/images/UpgradeImage.iso.md5 ]; then
-  else
+  if [ ! -f /shared/images/UpgradeImage.iso.md5 ]; then
    echo "`date +%Y%m%d%H%M%S` /shared/images/UpgradeImage.iso.md5 does NOT exist ."
   fi
-  if [[ `cat $UpGradeImageName_File` =~ ^(BIGIP\-)((([0-9]+)\.)+)([0-9]+)\-((([0-9]+)\.)+)([0-9]+)\.iso$ ]]; then
-  else
+  if ( ! [[ `cat $UpGradeImageName_File` =~ ^(BIGIP\-)((([0-9]+)\.)+)([0-9]+)\-((([0-9]+)\.)+)([0-9]+)\.iso$ ]] ); then
    echo "`date +%Y%m%d%H%M%S` Value of $UpGradeImageName_File : `cat $UpGradeImageName_File` does NOT match Regular Expression ."
   fi
  fi
