@@ -205,13 +205,13 @@
       "Type": "String",
       "Default": "https://aws-f5-singapore-hc-demo-bucket-files.s3-ap-southeast-1.amazonaws.com/Big-IP/16.0.0/",
       "AllowedPattern": "^(http:\\/\\/|https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$|^none$",
-      "Description": "URL Path of the upgrade .iso image. Keep the last / character. Input *none* (without the *) to deploy without upgrade procedure."
+      "Description": "URL Path of the upgrade .iso image. Keep the last / character."
     },
     "UpgradeImageFileName" : {
       "Type": "String",
       "Default": "BIGIP-16.0.0-0.0.12.iso",
       "AllowedPattern": "^(BIGIP\\-)((([0-9]+)\\.)+)([0-9]+)\\-((([0-9]+)\\.)+)([0-9]+)\\.iso$|^none$",
-      "Description": "File Name of the upgrade .iso image. Input *none* (without the *) to deploy without upgrade procedure."
+      "Description": "File Name of the upgrade .iso image."
     },
     "BigIPTrafficTLSKey" : {
       "Type": "String",
@@ -455,12 +455,6 @@
 
     }
    }
-  },
-
-
-
-  "Conditions" : {
-    "NoUpgradeFile" : { "Fn::Or": [ { "Fn::Equals" : [ { "Ref": "UpgradeImageURLPath" }, "none"] }, { "Fn::Equals" : [ { "Ref": "UpgradeImageFileName" }, "none"] } ] }
   },
 
 
@@ -3987,13 +3981,13 @@
           "group": "root",
           "mode": "000644",
           "owner": "root",
-          "source": { "Fn::If": [ "NoUpgradeFile", { "Ref" : "AWS::NoValue" }, { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" } ] ] } ] }
+          "source": { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" } ] ] }
          },
          "/shared/images/UpgradeImage.iso.md5": {
           "group": "root",
           "mode": "000644",
           "owner": "root",
-          "source": { "Fn::If": [ "NoUpgradeFile", { "Ref" : "AWS::NoValue" }, { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" }, ".md5" ] ] } ] }
+          "source": { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" }, ".md5" ] ] }
          },
          "/config/BigIPSendMail": {
           "group": "root",
@@ -4808,13 +4802,13 @@
           "group": "root",
           "mode": "000644",
           "owner": "root",
-          "source": { "Fn::If": [ "NoUpgradeFile", { "Ref" : "AWS::NoValue" }, { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" } ] ] } ] }
+          "source": { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" } ] ] }
          },
          "/shared/images/UpgradeImage.iso.md5": {
           "group": "root",
           "mode": "000644",
           "owner": "root",
-          "source": { "Fn::If": [ "NoUpgradeFile", { "Ref" : "AWS::NoValue" }, { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" }, ".md5" ] ] } ] }
+          "source": { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" }, ".md5" ] ] }
          },
          "/config/BigIPSendMail": {
           "group": "root",
@@ -5597,13 +5591,13 @@
           "group": "root",
           "mode": "000644",
           "owner": "root",
-          "source": { "Fn::If": [ "NoUpgradeFile", { "Ref" : "AWS::NoValue" }, { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" } ] ] } ] }
+          "source": { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" } ] ] }
          },
          "/shared/images/UpgradeImage.iso.md5": {
           "group": "root",
           "mode": "000644",
           "owner": "root",
-          "source": { "Fn::If": [ "NoUpgradeFile", { "Ref" : "AWS::NoValue" }, { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" }, ".md5" ] ] } ] }
+          "source": { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" }, ".md5" ] ] }
          },
          "/config/BigIPSendMail": {
           "group": "root",
@@ -6372,13 +6366,13 @@
           "group": "root",
           "mode": "000644",
           "owner": "root",
-          "source": { "Fn::If": [ "NoUpgradeFile", { "Ref" : "AWS::NoValue" }, { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" } ] ] } ] }
+          "source": { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" } ] ] }
          },
          "/shared/images/UpgradeImage.iso.md5": {
           "group": "root",
           "mode": "000644",
           "owner": "root",
-          "source": { "Fn::If": [ "NoUpgradeFile", { "Ref" : "AWS::NoValue" }, { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" }, ".md5" ] ] } ] }
+          "source": { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" }, ".md5" ] ] }
          },
          "/config/BigIPSendMail": {
           "group": "root",
