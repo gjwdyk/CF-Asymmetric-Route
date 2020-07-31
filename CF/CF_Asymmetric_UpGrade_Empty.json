@@ -91,33 +91,37 @@
     },
     "OutGoingBigIPRegistrationKeyLicense" : {
       "Type": "String",
+      "NoEcho": "true",
       "MinLength": "1",
       "MaxLength": "255",
-      "AllowedPattern": "([A-Z][0-1A-Z]{4}\\-)([0-1A-Z]{5}\\-){3}([0-1A-Z]{7})( \\-\\-add\\-on ([0-1A-Z]{7}\\-[0-1A-Z]{7}))*",
+      "AllowedPattern": "^([A-Z][0-9A-Z]{4}\\-)([0-9A-Z]{5}\\-){3}([0-9A-Z]{7})( \\-\\-add\\-on ([0-9A-Z]{7}\\-[0-9A-Z]{7}))*$",
       "ConstraintDescription": "Must be a valid Big-IP Registration Key License.",
       "Description": "Big-IP Registration Key License. Format : AAAAA-BBBBB-CCCCC-DDDDD-EEEEEEE --add-on FFFFFFF-GGGGGGG --add-on HHHHHHH-IIIIIII ; or simply : AAAAA-BBBBB-CCCCC-DDDDD-EEEEEEE if there is no Add-On module."
     },
     "InComingBigIPRegistrationKeyLicense" : {
       "Type": "String",
+      "NoEcho": "true",
       "MinLength": "1",
       "MaxLength": "255",
-      "AllowedPattern": "([A-Z][0-1A-Z]{4}\\-)([0-1A-Z]{5}\\-){3}([0-1A-Z]{7})( \\-\\-add\\-on ([0-1A-Z]{7}\\-[0-1A-Z]{7}))*",
+      "AllowedPattern": "^([A-Z][0-9A-Z]{4}\\-)([0-9A-Z]{5}\\-){3}([0-9A-Z]{7})( \\-\\-add\\-on ([0-9A-Z]{7}\\-[0-9A-Z]{7}))*$",
       "ConstraintDescription": "Must be a valid Big-IP Registration Key License.",
       "Description": "Big-IP Registration Key License. Format : AAAAA-BBBBB-CCCCC-DDDDD-EEEEEEE --add-on FFFFFFF-GGGGGGG --add-on HHHHHHH-IIIIIII ; or simply : AAAAA-BBBBB-CCCCC-DDDDD-EEEEEEE if there is no Add-On module."
     },
     "BigIPInternalRegistrationKeyLicense" : {
       "Type": "String",
+      "NoEcho": "true",
       "MinLength": "1",
       "MaxLength": "255",
-      "AllowedPattern": "([A-Z][0-1A-Z]{4}\\-)([0-1A-Z]{5}\\-){3}([0-1A-Z]{7})( \\-\\-add\\-on ([0-1A-Z]{7}\\-[0-1A-Z]{7}))*",
+      "AllowedPattern": "^([A-Z][0-9A-Z]{4}\\-)([0-9A-Z]{5}\\-){3}([0-9A-Z]{7})( \\-\\-add\\-on ([0-9A-Z]{7}\\-[0-9A-Z]{7}))*$",
       "ConstraintDescription": "Must be a valid Big-IP Registration Key License.",
       "Description": "Big-IP Registration Key License. Format : AAAAA-BBBBB-CCCCC-DDDDD-EEEEEEE --add-on FFFFFFF-GGGGGGG --add-on HHHHHHH-IIIIIII ; or simply : AAAAA-BBBBB-CCCCC-DDDDD-EEEEEEE if there is no Add-On module."
     },
     "BigIPExternalRegistrationKeyLicense" : {
       "Type": "String",
+      "NoEcho": "true",
       "MinLength": "1",
       "MaxLength": "255",
-      "AllowedPattern": "([A-Z][0-1A-Z]{4}\\-)([0-1A-Z]{5}\\-){3}([0-1A-Z]{7})( \\-\\-add\\-on ([0-1A-Z]{7}\\-[0-1A-Z]{7}))*",
+      "AllowedPattern": "^([A-Z][0-9A-Z]{4}\\-)([0-9A-Z]{5}\\-){3}([0-9A-Z]{7})( \\-\\-add\\-on ([0-9A-Z]{7}\\-[0-9A-Z]{7}))*$",
       "ConstraintDescription": "Must be a valid Big-IP Registration Key License.",
       "Description": "Big-IP Registration Key License. Format : AAAAA-BBBBB-CCCCC-DDDDD-EEEEEEE --add-on FFFFFFF-GGGGGGG --add-on HHHHHHH-IIIIIII ; or simply : AAAAA-BBBBB-CCCCC-DDDDD-EEEEEEE if there is no Add-On module."
     },
@@ -199,15 +203,15 @@
     },
     "UpgradeImageURLPath" : {
       "Type": "String",
-      "Default": "https://aws-f5-singapore-hc-demo-bucket-files.s3-ap-southeast-1.amazonaws.com/Big-IP/15.1.0/",
+      "Default": "https://aws-f5-singapore-hc-demo-bucket-files.s3-ap-southeast-1.amazonaws.com/Big-IP/16.0.0/",
       "AllowedPattern": "^(http:\\/\\/|https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$|^none$",
-      "Description": "URL Path of the upgrade .iso image. Keep the last / character."
+      "Description": "URL Path of the upgrade .iso image. Keep the last / character. Input *none* (without the *) to deploy without upgrade procedure."
     },
     "UpgradeImageFileName" : {
       "Type": "String",
-      "Default": "BIGIP-15.1.0.4-0.0.6.iso",
-      "AllowedPattern": "^[a-zA-Z0-9][a-zA-Z0-9\\.\\-]*.iso$|^none$",
-      "Description": "File Name of the upgrade .iso image."
+      "Default": "BIGIP-16.0.0-0.0.12.iso",
+      "AllowedPattern": "^(BIGIP\\-)((([0-9]+)\\.)+)([0-9]+)\\-((([0-9]+)\\.)+)([0-9]+)\\.iso$|^none$",
+      "Description": "File Name of the upgrade .iso image. Input *none* (without the *) to deploy without upgrade procedure."
     },
     "BigIPTrafficTLSKey" : {
       "Type": "String",
@@ -224,25 +228,29 @@
     "OutGoingBigIPLidsa" : {
       "Type": "String",
       "NoEcho": "true",
-      "Default": "Lidsa",
+      "Default": "none",
+      "AllowedPattern": "^(([A-Z][0-9A-Z]{4}\\-)([0-9A-Z]{5}\\-){3}([0-9A-Z]{7})( \\-\\-add\\-on ([0-9A-Z]{7}\\-[0-9A-Z]{7}))*)(\\\\n(([A-Z][0-9A-Z]{4}\\-)([0-9A-Z]{5}\\-){3}([0-9A-Z]{7})( \\-\\-add\\-on ([0-9A-Z]{7}\\-[0-9A-Z]{7}))*))*$|^none$",
       "Description": "Lorem Ipsum Dolor Sit Amet string. Proposed format are Lorem\\nIpsum\\nDolor\\nSit\\nAmet. Leave the field as it is for default."
     },
     "InComingBigIPLidsa" : {
       "Type": "String",
       "NoEcho": "true",
-      "Default": "Lidsa",
+      "Default": "none",
+      "AllowedPattern": "^(([A-Z][0-9A-Z]{4}\\-)([0-9A-Z]{5}\\-){3}([0-9A-Z]{7})( \\-\\-add\\-on ([0-9A-Z]{7}\\-[0-9A-Z]{7}))*)(\\\\n(([A-Z][0-9A-Z]{4}\\-)([0-9A-Z]{5}\\-){3}([0-9A-Z]{7})( \\-\\-add\\-on ([0-9A-Z]{7}\\-[0-9A-Z]{7}))*))*$|^none$",
       "Description": "Lorem Ipsum Dolor Sit Amet string. Proposed format are Lorem\\nIpsum\\nDolor\\nSit\\nAmet. Leave the field as it is for default."
     },
     "BigIPInternalLidsa" : {
       "Type": "String",
       "NoEcho": "true",
-      "Default": "Lidsa",
+      "Default": "none",
+      "AllowedPattern": "^(([A-Z][0-9A-Z]{4}\\-)([0-9A-Z]{5}\\-){3}([0-9A-Z]{7})( \\-\\-add\\-on ([0-9A-Z]{7}\\-[0-9A-Z]{7}))*)(\\\\n(([A-Z][0-9A-Z]{4}\\-)([0-9A-Z]{5}\\-){3}([0-9A-Z]{7})( \\-\\-add\\-on ([0-9A-Z]{7}\\-[0-9A-Z]{7}))*))*$|^none$",
       "Description": "Lorem Ipsum Dolor Sit Amet string. Proposed format are Lorem\\nIpsum\\nDolor\\nSit\\nAmet. Leave the field as it is for default."
     },
     "BigIPExternalLidsa" : {
       "Type": "String",
       "NoEcho": "true",
-      "Default": "Lidsa",
+      "Default": "none",
+      "AllowedPattern": "^(([A-Z][0-9A-Z]{4}\\-)([0-9A-Z]{5}\\-){3}([0-9A-Z]{7})( \\-\\-add\\-on ([0-9A-Z]{7}\\-[0-9A-Z]{7}))*)(\\\\n(([A-Z][0-9A-Z]{4}\\-)([0-9A-Z]{5}\\-){3}([0-9A-Z]{7})( \\-\\-add\\-on ([0-9A-Z]{7}\\-[0-9A-Z]{7}))*))*$|^none$",
       "Description": "Lorem Ipsum Dolor Sit Amet string. Proposed format are Lorem\\nIpsum\\nDolor\\nSit\\nAmet. Leave the field as it is for default."
     }
   },
@@ -447,6 +455,12 @@
 
     }
    }
+  },
+
+
+
+  "Conditions" : {
+    "NoUpgradeFile" : { "Fn::Or": [ { "Fn::Equals" : [ { "Ref": "UpgradeImageURLPath" }, "none"] }, { "Fn::Equals" : [ { "Ref": "UpgradeImageFileName" }, "none"] } ] }
   },
 
 
@@ -3973,13 +3987,13 @@
           "group": "root",
           "mode": "000644",
           "owner": "root",
-          "source": { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" } ] ] }
+          "source": { "Fn::If": [ "NoUpgradeFile", { "Ref" : "AWS::NoValue" }, { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" } ] ] } ] }
          },
          "/shared/images/UpgradeImage.iso.md5": {
           "group": "root",
           "mode": "000644",
           "owner": "root",
-          "source": { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" }, ".md5" ] ] }
+          "source": { "Fn::If": [ "NoUpgradeFile", { "Ref" : "AWS::NoValue" }, { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" }, ".md5" ] ] } ] }
          },
          "/config/BigIPSendMail": {
           "group": "root",
@@ -4794,13 +4808,13 @@
           "group": "root",
           "mode": "000644",
           "owner": "root",
-          "source": { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" } ] ] }
+          "source": { "Fn::If": [ "NoUpgradeFile", { "Ref" : "AWS::NoValue" }, { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" } ] ] } ] }
          },
          "/shared/images/UpgradeImage.iso.md5": {
           "group": "root",
           "mode": "000644",
           "owner": "root",
-          "source": { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" }, ".md5" ] ] }
+          "source": { "Fn::If": [ "NoUpgradeFile", { "Ref" : "AWS::NoValue" }, { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" }, ".md5" ] ] } ] }
          },
          "/config/BigIPSendMail": {
           "group": "root",
@@ -5583,13 +5597,13 @@
           "group": "root",
           "mode": "000644",
           "owner": "root",
-          "source": { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" } ] ] }
+          "source": { "Fn::If": [ "NoUpgradeFile", { "Ref" : "AWS::NoValue" }, { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" } ] ] } ] }
          },
          "/shared/images/UpgradeImage.iso.md5": {
           "group": "root",
           "mode": "000644",
           "owner": "root",
-          "source": { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" }, ".md5" ] ] }
+          "source": { "Fn::If": [ "NoUpgradeFile", { "Ref" : "AWS::NoValue" }, { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" }, ".md5" ] ] } ] }
          },
          "/config/BigIPSendMail": {
           "group": "root",
@@ -6358,13 +6372,13 @@
           "group": "root",
           "mode": "000644",
           "owner": "root",
-          "source": { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" } ] ] }
+          "source": { "Fn::If": [ "NoUpgradeFile", { "Ref" : "AWS::NoValue" }, { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" } ] ] } ] }
          },
          "/shared/images/UpgradeImage.iso.md5": {
           "group": "root",
           "mode": "000644",
           "owner": "root",
-          "source": { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" }, ".md5" ] ] }
+          "source": { "Fn::If": [ "NoUpgradeFile", { "Ref" : "AWS::NoValue" }, { "Fn::Join" : [ "", [ { "Ref": "UpgradeImageURLPath" }, { "Ref": "UpgradeImageFileName" }, ".md5" ] ] } ] }
          },
          "/config/BigIPSendMail": {
           "group": "root",
